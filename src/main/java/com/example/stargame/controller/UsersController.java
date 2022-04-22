@@ -27,11 +27,12 @@ public class UsersController {
 
 
     @PostMapping("/postusers")
-    public void create(@RequestParam("name") String name,
+    public String create(@RequestParam("name") String name,
                          @RequestParam("email") String email,
                          @RequestParam("subject") String subject,
-                         @RequestParam("message") String message, Model model) throws IOException {
+                         @RequestParam("message") String message) throws IOException {
         usersService.addUsers(name, email, subject, message);
+        return "redirect:/index.html";
     }
 }
 

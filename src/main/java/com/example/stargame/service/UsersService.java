@@ -21,17 +21,16 @@ public class UsersService {
     UsersRepository usersRepository;
 
     public String addUsers(String name,String email,String subject,String message)throws IOException {
-
-        Users users = new Users();
-        users.setName(name);
-        users.setMessage(message);
-        users.setEmail(email);
-        users.setSubject(subject);
-        usersRepository.save(users);
-        MainBot mainBot = new MainBot();
-        mainBot.onUpdateReceived(new Update());
-        mainBot.usersList(users);
-    return "redirect:/index.html";
+        boolean exists = usersRepository.existsByEmail(email);
+        if (!exists) {
+            Users users = new Users();
+            users.setName(name);
+            users.setMessage(message);
+            users.setEmail(email);
+            users.setSubject(subject);
+            usersRepository.save(users);
+        }return "redirect:/index.html";
+//    return "redirect:/index.html";
         }
 }
 
